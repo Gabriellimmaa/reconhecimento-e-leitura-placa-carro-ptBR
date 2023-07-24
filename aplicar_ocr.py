@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import cv2
 import pytesseract
 from matplotlib.widgets import Button
-from utils import exibir_resultado, substituir_letras_por_numeros
+from utils import exibir_resultado, substituir_letras_por_numeros, gerar_possibilidades_mercosul
 import re
 
 
@@ -70,6 +70,8 @@ def aplicar_ocr(possiveis_placas):
 
         # pegar os ultimos quatro caracteres da placa detectada por e aplicar o array para substituir letras por números
         ultimos_4_caracteres = placa_detectada_por[-4:]
+
+        # possibilidades placa normal
         possibilidades = substituir_letras_por_numeros(ultimos_4_caracteres)
         # converter um array em uma lista string com quebra de linha
         result = ""
@@ -77,5 +79,12 @@ def aplicar_ocr(possiveis_placas):
             result += placa_detectada_por[:3] + \
                 possibilidades[i] + "\n"
         result += "\nMercosul:\n"
+
+        # possibilidades placa mercosul
+        possibilidades_mercosul = gerar_possibilidades_mercosul(
+            ultimos_4_caracteres)
+        for i in range(len(possibilidades_mercosul)):
+            result += placa_detectada_por[:3] + \
+                possibilidades_mercosul[i] + "\n"
 
         return result, placa_recortada, placa_recortada_processada

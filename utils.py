@@ -72,7 +72,7 @@ def exibir_resultado(imagem, imagem_processada, imagem_recortada, imagem_recorta
     plt.show()
 
 
-def substituir_letras_por_numeros(ultimos_caracteres):
+def substituir_letras_por_numeros(ultimos_caracteres: str):
     todas_possibilidades = ['']
 
     for caractere in reversed(ultimos_caracteres):
@@ -88,4 +88,53 @@ def substituir_letras_por_numeros(ultimos_caracteres):
 
         todas_possibilidades = possibilidades
 
+    return todas_possibilidades
+
+
+def gerar_possibilidades_mercosul(value: str):
+    def combinar_elementos(lista, prefixo=''):
+        if not lista:
+            return [prefixo]
+
+        resultado = []
+        elemento_atual = lista[0]
+        for item in elemento_atual:
+            novo_prefixo = prefixo + item
+            resultado.extend(combinar_elementos(lista[1:], novo_prefixo))
+
+        return resultado
+
+    segurar_letra = []
+    index = 0
+    for caractere in value:
+        if caractere in letras_numeros:
+            segurar_letra.append((
+                caractere, index
+            ))
+        index += 1
+
+    todas_possibilidades = []
+    for letra_travada, index_travado in segurar_letra:
+        index = 0
+        possibilidades = []
+        for caractere in value:
+            if(caractere != letra_travada or index != index_travado):
+                # Se o caractere for uma letra que pode ser convertida
+                if(caractere in letras_numeros):
+                    valor_convertido = letras_numeros[caractere]
+                    if isinstance(valor_convertido, list):
+                        possibilidade_multipla = []
+                        for letra_numero in valor_convertido:
+                            possibilidade_multipla.append(
+                                letra_numero)
+                        possibilidades.append(possibilidade_multipla)
+                    else:
+                        possibilidades.append(valor_convertido)
+                else:
+                    possibilidades.append(caractere)
+            else:
+                possibilidades.append(caractere)
+
+            index += 1
+        todas_possibilidades.extend(combinar_elementos(possibilidades))
     return todas_possibilidades
