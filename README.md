@@ -1,7 +1,7 @@
 # Reconhecimento e Leitura Placa Carro ptBR
 Este repositório contém código em Python que realiza a identificação de placas de carro em imagens utilizando a biblioteca Tesseract OCR.
 
-##### Link para ler o artigo https://github.com/Gabriellimmaa/reconhecimento-e-leitura-placa-carro-ptBR/blob/main/artigo/artigo.pdf
+##### Link para ler o artigo https://github.com/Gabriellimmaa/reconhecimento-e-leitura-placa-carro-ptBR/blob/main/artigo/Artigo.pdf
 
 <p align="center">
   <img src="artigo/img.png" height="auto" width="700" alt="resultado">
